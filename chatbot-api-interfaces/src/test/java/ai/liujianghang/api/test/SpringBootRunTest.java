@@ -1,8 +1,8 @@
 package ai.liujianghang.api.test;
 
 import ai.liujianghang.api.ApiApplication;
+import ai.liujianghang.api.domain.ai.IOpenAI;
 import ai.liujianghang.api.domain.zsxq.IZsxqApi;
-
 
 
 import ai.liujianghang.api.domain.zsxq.model.aggregates.UnAnsweredQuestionsAggregates;
@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import javax.annotation.Resource;
 
 import java.io.IOException;
@@ -32,13 +33,15 @@ public class SpringBootRunTest {
     private String cookie;
     @Autowired
     private IZsxqApi zsxqApi;
+    @Autowired
+    private IOpenAI openAI;
 
     @Test
     public void test_zsxqApi() throws IOException {
         UnAnsweredQuestionsAggregates unAnsweredQuestionsAggregates = zsxqApi.queryUnAnsweredQuestionTopicId(groupId, cookie);
         logger.info("测试结果:{}", JSON.toJSONString(unAnsweredQuestionsAggregates));
         List<Topics> topics = unAnsweredQuestionsAggregates.getResp_data().getTopics();
-        if(topics!=null) {
+        if (topics != null) {
             for (Topics topic : topics) {
                 String topicId = topic.getTopic_id();
                 String text = topic.getQuestion().getText();
@@ -47,5 +50,11 @@ public class SpringBootRunTest {
                 zsxqApi.answer(groupId, cookie, topicId, text, false);
             }
         }
+    }
+
+    @Test
+    public void test_openAi() throws IOException {
+        String response = openAI.doChatGPT("帮我写一个冒泡排序");
+        logger.info("测试结果:{}", response);
     }
 }

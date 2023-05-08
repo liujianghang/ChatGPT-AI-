@@ -10,4 +10,5 @@ spring:
 
 chatbot-api:
   groupId: 123456
-  cookie: "cookie"
+  cookie: "zsxq_cookie"
+  openAIKey: "openAIKey"
