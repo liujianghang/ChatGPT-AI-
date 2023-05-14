@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class OpenAI implements IOpenAI {
     private Logger logger = LoggerFactory.getLogger(OpenAI.class);
-    @Value("${openAIKey}")
+    @Value("${chatbot-api.openAIKey}")
     private String openAIKey;
 
     @Override

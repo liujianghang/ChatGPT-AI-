@@ -27,6 +27,7 @@
         <module>chatbot-api-application</module>
         <module>chatbot-api-interfaces</module>
         <module>chatbot-api-infrastructure</module>
+        <module>chatbot-api-application</module>
     </modules>
     <dependencies>
         <dependency>
